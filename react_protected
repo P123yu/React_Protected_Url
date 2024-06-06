@@ -1,0 +1,81 @@
+
+
+ =========================================================================================== METHOD 1 ===================================================================================
+
+
+// method 1 (using conventional way)  
+// App.jsx
+
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import A from "./A";
+import A1 from "./A1";
+import C from "./C";
+import Protected from "./Protected";
+function App() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/a" element={<A></A>} />
+          <Route path="/c" element={<C></C>}></Route>
+          <Route element={<Protected />}>
+            <Route path="/a1" element={<A1 />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+// A.jsx
+
+
+import React from "react";
+function A() {
+  return <div>first page</div>;
+}
+export default A;
+
+
+// A1.jsx
+
+import React from "react";
+function A1() {
+  return <div>second page</div>;
+}
+export default A1;
+
+
+// C.jsx
+
+import React from "react";
+function C() {
+  return <div>this is c</div>;
+}
+export default C;
+
+
+// Protected.jsx
+
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+function Protected() {
+  let auth = false;
+  return <div>{auth ? <Outlet /> : <Navigate to={"/c"} />}</div>;   => in this condition i am protecting url "/a1" if you hit "/a1" it will redirect to "/c" url if auth is "false" 
+}
+export default Protected;
+
+// auth="false" means authentication is not done. if auth="true" it means authentication is done so now we can access "/a1" url 
+
+
+
+
+=================================================================================== METHOD 2 =============================================================================================
+
+
+// use 
