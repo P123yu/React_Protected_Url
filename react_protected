@@ -78,4 +78,33 @@ export default Protected;
 =================================================================================== METHOD 2 =============================================================================================
 
 
-// use 
+// App.jsx
+
+
+
+import React from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import A from "./A";
+import A1 from "./A1";
+import C from "./C";
+import Protected from "./Protected";
+function App() {
+  const router = createBrowserRouter([
+    { path: "/a", element: <A /> },
+    { path: "/c", element: <C /> },
+    {
+      path: "/",
+      element: <Protected />,
+      children: [{ path: "/a1", element: <A1 /> }],
+    },
+  ]);
+  return (
+    <div>
+      <RouterProvider router={router} />
+    </div>
+  );
+}
+
+export default App;
+
+
